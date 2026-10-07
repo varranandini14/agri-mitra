@@ -1,0 +1,313 @@
+/* ============================================================
+   AgriMitra — Responsive Styles (responsive.css)
+   Breakpoints: desktop (1280+), laptop (1080), tablet (900),
+                mobile large (640), mobile small (360)
+   ============================================================ */
+
+/* ── Large desktop: sidebar visible, full grid ── */
+@media (max-width: 1100px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+/* ── Tablet landscape breakpoint ── */
+@media (max-width: 980px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .hero-image-container {
+    max-height: 320px;
+  }
+
+  .hero-text h1 {
+    font-size: 1.7rem;
+  }
+
+  .filters {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filters > :last-child {
+    grid-column: span 2;
+  }
+}
+
+/* ── Tablet / mobile breakpoint: hide sidebar, show bottom nav ── */
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .bottom-nav {
+    display: flex;
+  }
+
+  .page {
+    padding: 18px 16px 96px; /* extra bottom pad for bottom nav */
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-brand {
+    display: flex !important;
+  }
+
+  .tabs {
+    width: 100%;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 0.88rem;
+  }
+}
+
+/* ── Mobile (up to 640px) ── */
+@media (max-width: 640px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    padding: 0 14px;
+  }
+
+  .hero {
+    padding: 18px 14px 16px;
+  }
+
+  .hero-image-container {
+    aspect-ratio: 16 / 10;
+    max-height: 250px;
+    border-radius: 16px;
+  }
+
+  .hero-farmer-image {
+    object-position: 58% 24%;
+  }
+
+  .hero-image-tag {
+    bottom: 9px;
+    left: 9px;
+    font-size: 0.74rem;
+    padding: 4px 10px 4px 8px;
+  }
+
+  .modal {
+    padding: 16px 14px;
+  }
+
+  .toast-stack {
+    left: 12px;
+    right: 12px;
+  }
+
+  .toast {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .cal-cell {
+    min-height: 54px;
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+
+  .bar-chart {
+    height: 140px;
+  }
+
+  .season-badge {
+    display: none; /* too cramped on very small screens */
+  }
+
+  .profile-btn span:not(.avatar):not([aria-hidden]) {
+    display: none; /* hide name, keep avatar */
+  }
+
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1.2rem; }
+
+  .quick-actions {
+    gap: 8px;
+  }
+
+  .quick-actions .btn {
+    font-size: 0.88rem;
+    padding: 9px 14px;
+  }
+}
+
+/* ── Small mobile (360px) ── */
+@media (max-width: 400px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image-container {
+    max-height: 210px;
+    border-radius: 14px;
+  }
+
+  .hero-farmer-image {
+    object-position: 58% 22%;
+  }
+
+  .hero-image-tag {
+    bottom: 8px;
+    left: 8px;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .calendar-grid {
+    gap: 3px;
+  }
+
+  .cal-cell {
+    min-height: 46px;
+    padding: 3px;
+  }
+
+  .cal-day-header {
+    font-size: 0.65rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .tabs {
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .tab {
+    padding: 7px 8px;
+    font-size: 0.8rem;
+  }
+
+  .page {
+    padding: 14px 12px 92px;
+  }
+}
+
+/* ── Mobile-brand visibility (hidden on desktop) ── */
+.mobile-brand {
+  display: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* ══════════════════════════════════════════════════
+   WELCOME / LANDING PAGE RESPONSIVE
+   ══════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .welcome-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .welcome-journey-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .welcome-hero {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .welcome-hero-image-card {
+    max-height: 320px;
+  }
+  .welcome-trust-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .welcome-journey-track {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .welcome-main {
+    padding: 24px 16px 44px;
+  }
+  .welcome-features-grid {
+    grid-template-columns: 1fr;
+  }
+  .welcome-title {
+    font-size: 1.85rem;
+  }
+  .welcome-lead {
+    font-size: 0.98rem;
+    margin-bottom: 22px;
+  }
+  .welcome-hero-image-card {
+    max-height: 250px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .welcome-header {
+    padding: 12px 14px;
+  }
+  .welcome-hero-image-card {
+    max-height: 210px;
+    border-radius: 14px;
+  }
+  .welcome-hero-img {
+    object-position: 58% 22%;
+  }
+  .welcome-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .welcome-cta-group button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

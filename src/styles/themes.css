@@ -1,0 +1,215 @@
+/* ============================================================
+   AgriMitra — Design System (themes.css)
+   Fonts, CSS variables, light/dark tokens
+   MANDATORY BRAND PALETTE:
+     Forest Green #1B5E3B | Leaf Green #6AA84F | Golden Yellow #F4C430
+     Cream #FAF8EF | Charcoal #2E2E2E
+   ============================================================ */
+
+/* Google Fonts — Nunito (headings), Source Sans 3 (body), Caveat (notes),
+   Noto Sans Telugu, Noto Sans Devanagari (Indian language rendering) */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+/* ── Root: constants and layout values ── */
+:root {
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-display: 'Nunito', 'Noto Sans Telugu', 'Noto Sans Devanagari', 'Segoe UI', system-ui, sans-serif;
+  --font-body:    'Source Sans 3', 'Noto Sans Telugu', 'Noto Sans Devanagari', 'Segoe UI', system-ui, sans-serif;
+  --font-note:    'Caveat', 'Segoe Script', cursive;
+  --font-telugu:  'Noto Sans Telugu', 'Source Sans 3', system-ui, sans-serif;
+  --font-hindi:   'Noto Sans Devanagari', 'Source Sans 3', system-ui, sans-serif;
+
+  /* ── MANDATORY BRAND PALETTE (exact — do NOT alter) ─────── */
+  --brand-forest:   #1B5E3B;
+  --brand-leaf:     #6AA84F;
+  --brand-gold:     #F4C430;
+  --brand-cream:    #FAF8EF;
+  --brand-charcoal: #2E2E2E;
+
+  /* ── Semantic aliases (always reference these in components) */
+  --clay:  #B5472A;   /* error/clay-red */
+  --teal:  #1A6B6F;   /* info teal */
+  --earth: #7A5C35;   /* earthy note colour */
+
+  /* ── Layout ────────────────────────────────────────────────── */
+  --radius:        16px;
+  --radius-sm:     10px;
+  --radius-xs:     6px;
+  --shadow:        0 6px 24px rgba(27, 94, 59, 0.10);
+  --shadow-sm:     0 2px 8px  rgba(27, 94, 59, 0.07);
+  --shadow-lg:     0 14px 44px rgba(27, 94, 59, 0.14);
+  --shadow-card:   0 4px 16px rgba(27, 94, 59, 0.08);
+  --sidebar:       262px;
+  --header:        68px;
+  --bottom-nav:    68px;
+  --focus:         2px solid #1B5E3B;
+  --transition:    0.18s ease;
+  --transition-slow: 0.3s ease;
+
+  /* ── Spacing scale ─────────────────────────────────────────── */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+
+  /* ── Touch targets (WCAG 2.5.8) ─────────────────────────── */
+  --touch-min: 48px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   LIGHT THEME
+   Surface: cream #FAF8EF | Primary: Forest Green #1B5E3B
+   All text/background combos target WCAG AA (4.5:1 body)
+   ════════════════════════════════════════════════════════════ */
+html[data-theme='light'] {
+  /* Backgrounds */
+  --bg:           #FAF8EF;   /* brand cream */
+  --bg-elevated:  #FFFFFF;
+  --surface:      #FFFFFF;
+  --surface-2:    #EDF7E6;   /* light leaf-green tint */
+  --paper:        #FDF5E0;   /* warm paper */
+
+  /* Text — contrast verified */
+  --text:            #2E2E2E;   /* charcoal on cream  → 12.5:1 ✓ */
+  --text-muted:      #5A6058;   /* muted on white     →  5.1:1 ✓ */
+  --text-subtle:     #7A8878;
+  --text-on-primary: #FFFFFF;   /* white on #1B5E3B   →  7.4:1 ✓ */
+  --text-on-gold:    #2E2E2E;   /* charcoal on #F4C430 → 9.2:1 ✓ */
+
+  /* Borders */
+  --border:        #C8DDB8;
+  --border-strong: #A8C89A;
+
+  /* Brand — primary/secondary/accent */
+  --primary:          #1B5E3B;
+  --primary-hover:    #155130;
+  --primary-light:    #E4F5E8;
+  --secondary:        #6AA84F;
+  --secondary-hover:  #5A9640;
+  --secondary-light:  #E8F5DC;
+  --accent:           #F4C430;
+  --accent-hover:     #DEB020;
+  --accent-soft:      #FEF0B0;
+  --accent-muted:     #FEF8D8;
+  --accent-text:      #2E2E2E;
+
+  /* Status */
+  --success:    #1B5E3B;
+  --success-bg: #DCF0E2;
+  --warning:    #8A6200;
+  --warning-bg: #FEF3CC;
+  --error:      #B5472A;
+  --error-bg:   #F8DDD5;
+  --info:       #1A6B6F;
+  --info-bg:    #D4ECEE;
+
+  /* Season hero tints */
+  --hero-kharif: #DFF0E5;
+  --hero-rabi:   #F5EDD8;
+  --hero-zaid:   #FDF0C0;
+
+  /* Charts (no purple/violet anywhere) */
+  --chart:   #1B5E3B;
+  --chart-2: #F4C430;
+  --chart-3: #1A6B6F;
+  --chart-4: #6AA84F;
+  --chart-5: #B5472A;
+
+  /* Navigation */
+  --nav-active:      #DFF0E5;
+  --nav-active-text: #1B5E3B;
+
+  /* Overlays */
+  --overlay: rgba(27, 60, 40, 0.44);
+
+  /* Cards */
+  --card-bg:     #FFFFFF;
+  --card-shadow: 0 3px 12px rgba(27, 94, 59, 0.08);
+
+  /* Form inputs */
+  --input-bg:     #FFFFFF;
+  --input-border: #C8DDB8;
+  --input-focus:  #1B5E3B;
+
+  color-scheme: light;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SOFT DARK THEME
+   Warm charcoal-green backgrounds — NOT pure black
+   Restrained Forest/Leaf Green accents, controlled Golden Yellow
+   ════════════════════════════════════════════════════════════ */
+html[data-theme='dark'] {
+  /* Backgrounds — warm charcoal-green tones */
+  --bg:           #1C2820;
+  --bg-elevated:  #243228;
+  --surface:      #2C3C2E;
+  --surface-2:    #364840;
+  --paper:        #283430;
+
+  /* Text */
+  --text:            #E8EDE5;   /* warm off-white */
+  --text-muted:      #9EB09A;
+  --text-subtle:     #788870;
+  --text-on-primary: #1C2820;   /* dark on brightened green */
+  --text-on-gold:    #1C2820;   /* dark on golden yellow */
+
+  /* Borders */
+  --border:        #384E3A;
+  --border-strong: #4A6050;
+
+  /* Brand — brightened for dark surface contrast */
+  --primary:          #6AB87C;
+  --primary-hover:    #80C890;
+  --primary-light:    #1C3825;
+  --secondary:        #5CA840;
+  --secondary-hover:  #74BA58;
+  --secondary-light:  #1C3020;
+  --accent:           #F4C430;   /* stays constant */
+  --accent-hover:     #FFCC40;
+  --accent-soft:      #3A3010;
+  --accent-muted:     #2C2808;
+  --accent-text:      #1C2820;
+
+  /* Status */
+  --success:    #78CC8A;
+  --success-bg: #1A3824;
+  --warning:    #F4C430;
+  --warning-bg: #38300E;
+  --error:      #E07858;
+  --error-bg:   #4A2018;
+  --info:       #72C0C4;
+  --info-bg:    #183A3C;
+
+  /* Season hero tints */
+  --hero-kharif: #1C3828;
+  --hero-rabi:   #30301A;
+  --hero-zaid:   #382E0E;
+
+  /* Charts */
+  --chart:   #78CC8A;
+  --chart-2: #F4C430;
+  --chart-3: #72C0C4;
+  --chart-4: #5CA840;
+  --chart-5: #E07858;
+
+  /* Navigation */
+  --nav-active:      #1C3828;
+  --nav-active-text: #78CC8A;
+
+  /* Overlays */
+  --overlay: rgba(8, 16, 10, 0.60);
+
+  /* Cards */
+  --card-bg:     #2C3C2E;
+  --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.30);
+
+  /* Form inputs */
+  --input-bg:     #243228;
+  --input-border: #384E3A;
+  --input-focus:  #6AB87C;
+
+  color-scheme: dark;
+}

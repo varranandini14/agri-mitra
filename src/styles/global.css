@@ -1,0 +1,269 @@
+/* ============================================================
+   AgriMitra — Global Base Styles (global.css)
+   Resets, typography, layout shell, utility classes
+   ============================================================ */
+
+@import './themes.css';
+
+/* ── Box model reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
+  transition: background var(--transition), color var(--transition);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; }
+h2 { font-size: clamp(1.25rem, 2.5vw, 1.55rem); font-weight: 700; }
+h3 { font-size: 1.08rem; font-weight: 700; }
+h4 { font-size: 0.95rem; font-weight: 600; }
+
+p {
+  margin: 0 0 0.75em;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* ── Accessibility ── */
+:focus-visible {
+  outline: 2px solid var(--brand-forest, #1B5E3B);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Skip to content link for keyboard users */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  background: var(--brand-gold, #F4C430);
+  color: var(--brand-charcoal, #2E2E2E);  /* 9.2:1 contrast on gold ✓ */
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  z-index: 1000;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 8px;
+}
+
+/* ── App Shell Layout ── */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar) 1fr;
+  min-height: 100vh;
+}
+
+.main-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Page container ── */
+.page {
+  padding: 22px 28px 48px;
+  max-width: 1200px;
+  flex: 1;
+}
+
+/* ── Page entrance animation (React Bits-inspired) ── */
+.page-enter {
+  animation: pageIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Handwritten accent (Farmer's Notebook feel, used sparingly) ── */
+.hand-label {
+  font-family: var(--font-note);
+  font-size: 1.05rem;
+  color: #7A5C35; /* earth brown — farmbook feel */
+  letter-spacing: 0.02em;
+  margin: 0 0 2px;
+}
+
+/* ── Field-furrow CSS divider (paddy-row motif) ── */
+.furrow {
+  height: 20px;
+  margin: 20px 0;
+  background-image: repeating-linear-gradient(
+    -15deg,
+    transparent,
+    transparent 9px,
+    color-mix(in srgb, var(--primary) 20%, transparent) 9px,
+    color-mix(in srgb, var(--primary) 20%, transparent) 11px
+  );
+  opacity: 0.6;
+  border-radius: 999px;
+}
+
+/* ── Notice / alert boxes ── */
+.notice {
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 0 0 16px;
+  border-left: 4px solid var(--border);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.notice.info    { background: var(--info-bg);    border-left-color: var(--info); }
+.notice.warning { background: var(--warning-bg); border-left-color: var(--warning); }
+.notice.error   { background: var(--error-bg);   border-left-color: var(--error); }
+.notice.success { background: var(--success-bg); border-left-color: var(--success); }
+
+/* ── Grid utilities ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* ── Flex row utility ── */
+.muted {
+  color: var(--text-muted);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin: 22px 0 14px;
+}
+
+.section-title h2 {
+  margin: 0;
+}
+
+/* ── Profit / loss text ── */
+.profit { color: var(--success); font-weight: 700; }
+.loss   { color: var(--error);   font-weight: 700; }
+
+/* ── Print helpers ── */
+.print-only {
+  display: none;
+}
+
+.no-print { /* nothing extra needed in screen; print removes it */ }
+
+@media print {
+  .sidebar,
+  .header,
+  .bottom-nav,
+  .toast-stack,
+  .no-print {
+    display: none !important;
+  }
+
+  .app-shell {
+    display: block;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  .page {
+    max-width: none;
+    padding: 12px;
+  }
+}
+
+/* ── Reduced motion — disable ALL animations ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .page-enter {
+    animation: none;
+  }
+}
