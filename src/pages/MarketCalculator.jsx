@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import FormField from '../components/FormField.jsx';
 import Button from '../components/Button.jsx';
 import SimpleBarChart from '../components/SimpleBarChart.jsx';
+import PriceComparisonChart from '../components/PriceComparisonChart.jsx';
 import Badge from '../components/Badge.jsx';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import EmptyState from '../components/EmptyState.jsx';
@@ -94,6 +95,12 @@ export default function MarketCalculator() {
     label: r.market.split(' ')[0],
     value: r.price,
     highlight: r.badge === 'Lowest' ? 'var(--accent-orange)' : r.badge === 'Highest' ? 'var(--primary)' : 'var(--accent-gold)',
+  }));
+
+  // For the improved area-wise chart — include localized market names
+  const chartRows = rows.slice(0, 8).map((r) => ({
+    ...r,
+    marketLabel: getLocalizedMarketName(r.market, language),
   }));
 
   const live = calculateFarmProfit(form);
@@ -368,20 +375,14 @@ export default function MarketCalculator() {
               </table>
             </div>
 
-            {chartItems.length > 0 && (
-              <div style={{ marginTop: '1.5rem', background: 'var(--surface-2)', padding: '1rem', borderRadius: 'var(--radius)' }}>
-                <div className="row" style={{ justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <h4 style={{ margin: 0 }}>{t('market.priceVisualizer')}</h4>
-                  <span className="muted" style={{ fontSize: '0.8rem' }}>
-                    {language === 'te'
-                      ? 'ఆకుపచ్చ = అత్యధిక ధర · నారింజ = అత్యల్ప ధర'
-                      : language === 'hi'
-                      ? 'हरा = उच्चतम भाव · नारंगी = न्यूनतम भाव'
-                      : 'Green = Highest · Orange = Lowest'}
-                  </span>
-                </div>
-                <SimpleBarChart items={chartItems} />
-              </div>
+            {chartRows.length > 0 && (
+              <PriceComparisonChart
+                rows={chartRows}
+                language={language}
+                cropName={cropFilter !== 'All' ? getLocalizedMarketCrop(cropFilter, language) : null}
+                formatINR={formatINR}
+                easyMode={easyMode}
+              />
             )}
           </>
         )}

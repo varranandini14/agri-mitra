@@ -408,9 +408,159 @@ export default function CropGrowthTimeline({
             ? 'सूचना: फसल की अवधि किस्म, मिट्टी और मौसम पर निर्भर करती है। अंतिम सलाह के लिए स्थानीय कृषि विज्ञान केंद्र (KVK) से संपर्क करें।'
             : 'Estimate disclaimer: Actual timing varies by variety, soil and weather. Confirm with your local agriculture officer or KVK.'}
         </p>
+
+        {/* ─── Visual Stage-Dot Journey Navigator ───────────────────── */}
+        <div
+          style={{
+            marginTop: '1.25rem',
+            overflowX: 'auto',
+            paddingBottom: '4px',
+          }}
+          role="navigation"
+          aria-label={language === 'te' ? 'పంట ప్రయాణ దశలు' : language === 'hi' ? 'फसल यात्रा के चरण' : 'Crop Journey Stages'}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', minWidth: 'min-content', gap: 0 }}>
+            {stages.map((st, idx) => {
+              const isDoneDot = completedStages.includes(st.id);
+              const isCurrentDot = idx === currentStageIndex;
+              const isLast = idx === stages.length - 1;
+              const dotBg = isDoneDot ? 'var(--primary)' : isCurrentDot ? '#D97706' : 'var(--surface-2)';
+              const dotBorder = isDoneDot ? 'var(--primary)' : isCurrentDot ? '#D97706' : 'var(--border)';
+              const dotText = isDoneDot ? '#fff' : isCurrentDot ? '#fff' : 'var(--text-muted)';
+              return (
+                <div key={st.id} style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                    <div
+                      style={{
+                        width: isCurrentDot ? '36px' : '28px',
+                        height: isCurrentDot ? '36px' : '28px',
+                        borderRadius: '50%',
+                        background: dotBg,
+                        border: `2px solid ${dotBorder}`,
+                        color: dotText,
+                        fontWeight: 700,
+                        fontSize: isCurrentDot ? '0.85rem' : '0.75rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: isCurrentDot ? '0 0 0 4px rgba(217,119,6,0.2)' : 'none',
+                        transition: 'all 0.2s',
+                        flexShrink: 0,
+                      }}
+                      aria-label={`${idx + 1}. ${st.names?.[language] || st.names?.en} — ${isDoneDot ? (language === 'te' ? 'పూర్తి' : language === 'hi' ? 'पूरा' : 'Done') : isCurrentDot ? (language === 'te' ? 'ప్రస్తుత దశ' : language === 'hi' ? 'वर्तमान' : 'Current') : (language === 'te' ? 'రాబోయే' : language === 'hi' ? 'आगामी' : 'Upcoming')}`}
+                    >
+                      {isDoneDot ? '✓' : idx + 1}
+                    </div>
+                    <span
+                      style={{
+                        fontSize: '0.65rem',
+                        fontWeight: isCurrentDot ? 700 : 500,
+                        color: isCurrentDot ? '#D97706' : 'var(--text-muted)',
+                        textAlign: 'center',
+                        maxWidth: '56px',
+                        lineHeight: 1.2,
+                        whiteSpace: 'normal',
+                        wordBreak: 'break-word',
+                      }}
+                    >
+                      {(st.names?.[language] || st.names?.en || '').split(' ').slice(0, 2).join(' ')}
+                    </span>
+                  </div>
+                  {!isLast && (
+                    <div
+                      style={{
+                        width: '28px',
+                        height: '2px',
+                        background: completedStages.includes(stages[idx + 1]?.id) || idx < currentStageIndex
+                          ? 'var(--primary)'
+                          : 'var(--border)',
+                        flexShrink: 0,
+                        alignSelf: 'flex-start',
+                        marginTop: isCurrentDot ? '18px' : '14px',
+                      }}
+                      aria-hidden="true"
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
-      {/* ─── Timeline Cards Stack ───────────────────────────────────── */}
+      {/* ─── YOU ARE HERE Banner ────────────────────────────────────── */}
+      {currentStage && (
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #FEF9E7 0%, #FEF3CC 100%)',
+            border: '2px solid #D97706',
+            borderRadius: '16px',
+            padding: '1rem 1.25rem',
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '0.75rem',
+          }}
+          role="status"
+          aria-live="polite"
+          aria-label={language === 'te' ? 'ప్రస్తుత దశ' : language === 'hi' ? 'वर्तमान चरण' : 'Current stage'}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                background: '#D97706',
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 800,
+                fontSize: '1.1rem',
+                flexShrink: 0,
+                boxShadow: '0 2px 8px rgba(217,119,6,0.35)',
+              }}
+              aria-hidden="true"
+            >
+              {currentStageIndex + 1}
+            </div>
+            <div>
+              <div
+                style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  color: '#92400E',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  marginBottom: '2px',
+                }}
+              >
+                ▶ {language === 'te' ? 'మీరు ఇక్కడ ఉన్నారు' : language === 'hi' ? 'आप यहां हैं' : 'YOU ARE HERE'}
+              </div>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#1F2937', lineHeight: 1.2 }}>
+                {currentStage.names?.[language] || currentStage.names?.en}
+              </div>
+              <div style={{ fontSize: '0.83rem', color: '#6B7280', marginTop: '2px' }}>
+                {language === 'te'
+                  ? `దశ ${currentStageIndex + 1} / ${totalStages} · ${completedCount} దశలు పూర్తయ్యాయి`
+                  : language === 'hi'
+                  ? `चरण ${currentStageIndex + 1} / ${totalStages} · ${completedCount} पूरे`
+                  : `Stage ${currentStageIndex + 1} of ${totalStages} · ${completedCount} completed`}
+              </div>
+            </div>
+          </div>
+          <div style={{ fontSize: '0.82rem', color: '#92400E', fontWeight: 600 }}>
+            {language === 'te' ? 'వరకు:' : language === 'hi' ? 'की ओर:' : 'Next:'}{' '}
+            {stages[currentStageIndex + 1]
+              ? (stages[currentStageIndex + 1].names?.[language] || stages[currentStageIndex + 1].names?.en)
+              : (language === 'te' ? 'కోత సిద്ధం' : language === 'hi' ? 'कटाई समय' : 'F33E Harvest')}
+          </div>
+        </div>
+      )}
+
       <div className="timeline-stages" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         {stages.map((stage, idx) => {
           const isDone = completedStages.includes(stage.id);
@@ -608,6 +758,76 @@ export default function CropGrowthTimeline({
                   </p>
                 </div>
               </div>
+
+              {/* ─── Inline 3-Question Farmer Summary ─────────────── */}
+              {(isCurrent || isDone) && (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                    gap: '0.65rem',
+                  }}
+                >
+                  {/* 1. What is happening */}
+                  {(stage.shortDesc?.[language] || stage.shortDesc?.en) ? (
+                    <div
+                      style={{
+                        background: isCurrent ? 'rgba(255,255,255,0.75)' : 'var(--surface-2)',
+                        borderRadius: '10px',
+                        padding: '0.65rem 0.85rem',
+                        borderLeft: '3px solid var(--primary)',
+                      }}
+                    >
+                      <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>
+                        🌱 {language === 'te' ? 'ఏమి జరుగుతుంది?' : language === 'hi' ? 'क्या हो रहा है?' : 'What is happening?'}
+                      </div>
+                      <div style={{ fontSize: '0.87rem', lineHeight: 1.45, color: isCurrent ? '#1F2937' : 'var(--text)' }}>
+                        {stage.shortDesc?.[language] || stage.shortDesc?.en}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {/* 2. Do this now */}
+                  {(stage.activities?.[language] || stage.activities?.en) ? (
+                    <div
+                      style={{
+                        background: isCurrent ? 'rgba(255,255,255,0.75)' : 'var(--surface-2)',
+                        borderRadius: '10px',
+                        padding: '0.65rem 0.85rem',
+                        borderLeft: '3px solid #D97706',
+                      }}
+                    >
+                      <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#D97706', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>
+                        🛠️ {language === 'te' ? 'ఇప్పుడు ఏమి చేయాలి:' : language === 'hi' ? 'अभी क्या करें:' : 'Do this now:'}
+                      </div>
+                      <div style={{ fontSize: '0.87rem', lineHeight: 1.45, color: isCurrent ? '#1F2937' : 'var(--text)' }}>
+                        {(stage.activities?.[language] || stage.activities?.en || '').split('.').filter(Boolean).slice(0, 2).join('. ').trim()}
+                        {(stage.activities?.[language] || stage.activities?.en || '').split('.').filter(Boolean).length > 2 ? '…' : ''}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {/* 3. Watch for */}
+                  {(stage.watchFor?.[language] || stage.watchFor?.en) ? (
+                    <div
+                      style={{
+                        background: isCurrent ? 'rgba(255,255,255,0.75)' : 'var(--surface-2)',
+                        borderRadius: '10px',
+                        padding: '0.65rem 0.85rem',
+                        borderLeft: '3px solid #9CA3AF',
+                      }}
+                    >
+                      <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>
+                        ⚠️ {language === 'te' ? 'గమనించాల్సినవి:' : language === 'hi' ? 'ध्यान दें:' : 'Watch for:'}
+                      </div>
+                      <div style={{ fontSize: '0.87rem', lineHeight: 1.45, color: isCurrent ? '#374151' : 'var(--text-muted)' }}>
+                        {(stage.watchFor?.[language] || stage.watchFor?.en || '').split('.').filter(Boolean).slice(0, 1).join('. ').trim()}
+                        {(stage.watchFor?.[language] || stage.watchFor?.en || '').split('.').filter(Boolean).length > 1 ? '…' : ''}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              )}
 
               {/* Saved Observations Note (if any) */}
               {observation && (
