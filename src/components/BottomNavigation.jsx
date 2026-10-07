@@ -10,7 +10,7 @@ export default function BottomNavigation() {
   const { t, language } = useAppData();
 
   const NAV_ITEMS = [
-    { to: '/', label: t('nav.home'), short: language === 'te' ? 'హోమ్' : language === 'hi' ? 'होम' : 'Home', icon: 'home' },
+    { to: '/home', label: t('nav.home'), short: language === 'te' ? 'హోమ్' : language === 'hi' ? 'होम' : 'Home', icon: 'home' },
     { to: '/crops', label: t('nav.crops'), short: language === 'te' ? 'పంటలు' : language === 'hi' ? 'फसल' : 'Crops', icon: 'leaf' },
     { to: '/market', label: t('nav.market'), short: language === 'te' ? 'మార్కెట్' : language === 'hi' ? 'मंडी' : 'Market', icon: 'market' },
     { to: '/schemes', label: t('nav.schemes'), short: language === 'te' ? 'పథకాలు' : language === 'hi' ? 'योजना' : 'Schemes', icon: 'shield' },
@@ -23,7 +23,7 @@ export default function BottomNavigation() {
         <NavLink
           key={item.to}
           to={item.to}
-          end={item.to === '/'}
+          end={item.to === '/home'}
           className={({ isActive }) => (isActive ? 'active' : '')}
           aria-label={item.label}
         >

@@ -11,7 +11,7 @@ export default function Sidebar() {
   const { t, language } = useAppData();
 
   const NAV_ITEMS = [
-    { to: '/', label: t('nav.home'), icon: 'home' },
+    { to: '/home', label: t('nav.home'), icon: 'home' },
     { to: '/crops', label: t('nav.crops'), icon: 'leaf' },
     { to: '/market', label: t('nav.market'), icon: 'market' },
     { to: '/schemes', label: t('nav.schemes'), icon: 'shield' },
@@ -28,7 +28,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar" aria-label="Main navigation">
       {/* Brand logo */}
-      <Link className="brand" to="/" aria-label="AgriMitra home">
+      <Link className="brand" to="/home" aria-label="AgriMitra home">
         <svg className="brand-mark" viewBox="0 0 64 64" aria-hidden>
           {/* Updated to exact brand Forest Green #1B5E3B and Golden Yellow #F4C430 */}
           <rect width="64" height="64" rx="14" fill="#1B5E3B" />
@@ -54,7 +54,7 @@ export default function Sidebar() {
           <NavLink
             key={item.to}
             to={item.to}
-            end={item.to === '/'}
+            end={item.to === '/home'}
             className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
           >
             <Icon name={item.icon} size={20} />

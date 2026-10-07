@@ -215,7 +215,7 @@ export default function Welcome() {
     } catch {
       /* ignore quota issues */
     }
-    navigate('/');
+    navigate('/home');
   }
 
   function handleListenIntro() {
