@@ -4,7 +4,12 @@ Frontend-only React app (Vite + JavaScript) for Indian small and medium farmers 
 
 **Tagline:** Smarter Farming. Better Decisions. A Brighter Harvest.
 
-## How to run
+## Live Demo
+
+🌾 AgriMitra – Live Website:
+https://agri-mitra.netlify.app
+
+## How to run locally
 
 ```bash
 cd agri-mitra
